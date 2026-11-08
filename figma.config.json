@@ -1,7 +1,7 @@
 {
   "codeConnect": {
     "include": ["codeconnect/**/*.figma.ts", "codeconnect/**/*.figma.batch.json"],
-    "label": "React Native",
+    "label": "React",
     "language": "tsx"
   }
 }
