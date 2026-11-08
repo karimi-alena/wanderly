@@ -1,0 +1,16 @@
+{
+  "name": "wanderly-design-system",
+  "private": true,
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "scripts": {
+    "tokens": "npm run build -w @wanderly/tokens",
+    "typecheck": "tsc -p packages/tokens --noEmit && tsc -p packages/ui --noEmit && tsc -p apps/storybook --noEmit",
+    "storybook": "npm run storybook -w @wanderly/storybook",
+    "build-storybook": "npm run build-storybook -w @wanderly/storybook",
+    "example": "npm run start -w example",
+    "example:web": "npm run web -w example -- --port 8082"
+  }
+}

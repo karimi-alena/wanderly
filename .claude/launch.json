@@ -1,0 +1,17 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "example-web",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "example:web"],
+      "port": 8082
+    },
+    {
+      "name": "storybook",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "storybook"],
+      "port": 6006
+    }
+  ]
+}

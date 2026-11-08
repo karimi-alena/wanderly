@@ -1,0 +1,15 @@
+{
+  "name": "@wanderly/tokens",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Wanderly design tokens generated from Figma variables.",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "scripts": {
+    "convert": "node scripts/figma-to-dtcg.mjs",
+    "build": "node scripts/figma-to-dtcg.mjs && node scripts/build.mjs"
+  },
+  "devDependencies": {
+    "style-dictionary": "^4.4.0"
+  }
+}
