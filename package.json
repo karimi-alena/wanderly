@@ -7,10 +7,15 @@
   ],
   "scripts": {
     "tokens": "npm run build -w @wanderly/tokens",
-    "typecheck": "tsc -p packages/tokens --noEmit && tsc -p packages/ui --noEmit && tsc -p apps/storybook --noEmit",
+    "typecheck": "tsc -p packages/tokens --noEmit && tsc -p packages/ui --noEmit && tsc -p apps/storybook --noEmit && tsc -p codeconnect",
+    "codeconnect:check": "figma connect parse > /dev/null",
+    "codeconnect:publish": "figma connect publish",
     "storybook": "npm run storybook -w @wanderly/storybook",
     "build-storybook": "npm run build-storybook -w @wanderly/storybook",
     "example": "npm run start -w example",
     "example:web": "npm run web -w example -- --port 8082"
+  },
+  "devDependencies": {
+    "@figma/code-connect": "^2.1.0"
   }
 }

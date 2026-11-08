@@ -70,5 +70,21 @@ function Home() {
 }
 ```
 
+## Figma Code Connect
+
+`codeconnect/` holds Code Connect [template files](https://developers.figma.com/docs/code-connect/template-files/)
+(`*.figma.ts`) that turn a selected Figma instance into a ready-to-paste snippet in Dev Mode, e.g. a secondary
+large button becomes `<Button label="Save" variant="secondary" size="large" />`. All icon components share
+one batch template (`icons.figma.batch.ts` + `.json`). Config lives in `figma.config.json`.
+
+```bash
+npm run codeconnect:check                                   # validate templates locally
+FIGMA_ACCESS_TOKEN=… npx figma connect publish --dry-run     # see what would be published
+FIGMA_ACCESS_TOKEN=… npm run codeconnect:publish            # publish to Figma
+```
+
+The token needs **Code Connect: Write** and **File content: Read** scopes (Figma → Settings → Security →
+Personal access tokens). If a component conflicts with an existing Code Connect UI link, add `--force` to replace it.
+
 Token paths mirror the Figma names: `surface/color/brand/solid` → `t.color.surface.brand.solid`,
 `border/dimension/radius/md` → `t.radius.md`, `semantic/margin/screen` → `t.dimension.margin.screen`.

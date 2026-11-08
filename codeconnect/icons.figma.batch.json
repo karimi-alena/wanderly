@@ -1,0 +1,13 @@
+{
+  "templateFile": "./icons.figma.batch.ts",
+  "components": [
+    { "url": "https://www.figma.com/design/f2tSOfcWCn8dS1ePHl1uHh/Test-Figma2Code?node-id=25-30", "id": "icon-explore", "iconName": "explore", "source": "packages/ui/src/components/Icon.tsx", "component": "Icon" },
+    { "url": "https://www.figma.com/design/f2tSOfcWCn8dS1ePHl1uHh/Test-Figma2Code?node-id=25-35", "id": "icon-trips", "iconName": "trips", "source": "packages/ui/src/components/Icon.tsx", "component": "Icon" },
+    { "url": "https://www.figma.com/design/f2tSOfcWCn8dS1ePHl1uHh/Test-Figma2Code?node-id=25-38", "id": "icon-saved", "iconName": "saved", "source": "packages/ui/src/components/Icon.tsx", "component": "Icon" },
+    { "url": "https://www.figma.com/design/f2tSOfcWCn8dS1ePHl1uHh/Test-Figma2Code?node-id=25-41", "id": "icon-inbox", "iconName": "inbox", "source": "packages/ui/src/components/Icon.tsx", "component": "Icon" },
+    { "url": "https://www.figma.com/design/f2tSOfcWCn8dS1ePHl1uHh/Test-Figma2Code?node-id=25-45", "id": "icon-profile", "iconName": "profile", "source": "packages/ui/src/components/Icon.tsx", "component": "Icon" },
+    { "url": "https://www.figma.com/design/f2tSOfcWCn8dS1ePHl1uHh/Test-Figma2Code?node-id=25-49", "id": "icon-search", "iconName": "search", "source": "packages/ui/src/components/Icon.tsx", "component": "Icon" },
+    { "url": "https://www.figma.com/design/f2tSOfcWCn8dS1ePHl1uHh/Test-Figma2Code?node-id=25-53", "id": "icon-notifications", "iconName": "notifications", "source": "packages/ui/src/components/Icon.tsx", "component": "Icon" },
+    { "url": "https://www.figma.com/design/f2tSOfcWCn8dS1ePHl1uHh/Test-Figma2Code?node-id=20-180", "id": "icon-placeholder", "iconName": "placeholder", "source": "packages/ui/src/components/Icon.tsx", "component": "Icon" }
+  ]
+}
