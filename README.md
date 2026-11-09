@@ -4,6 +4,9 @@ React Native (Expo) design system for the Wanderly travel app, generated from th
 [Figma file](https://www.figma.com/design/f2tSOfcWCn8dS1ePHl1uHh). Three brands share one
 token shape: **aurora** (default), **ember** and **slate**.
 
+**Storybook:** https://wanderly-storybook.vercel.app — rebuilt by Vercel on every push to `main`
+(settings in `vercel.json`; pull requests get their own preview link).
+
 ## Packages
 
 | Path | What it is |
