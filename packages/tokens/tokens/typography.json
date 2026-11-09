@@ -1,5 +1,20 @@
 {
   "typography": {
+    "caption": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "{font.family.body}",
+        "fontWeight": "{font.weight.medium}",
+        "fontSize": "{dimension.text.fontSize.fs12}",
+        "lineHeight": 1.25,
+        "letterSpacing": 0.02
+      },
+      "$extensions": {
+        "figma": {
+          "name": "caption"
+        }
+      }
+    },
     "display": {
       "lg": {
         "$type": "typography",
@@ -140,21 +155,6 @@
           "figma": {
             "name": "label/md"
           }
-        }
-      }
-    },
-    "caption": {
-      "$type": "typography",
-      "$value": {
-        "fontFamily": "{font.family.body}",
-        "fontWeight": "{font.weight.medium}",
-        "fontSize": "{dimension.text.fontSize.fs12}",
-        "lineHeight": 1.25,
-        "letterSpacing": 0.02
-      },
-      "$extensions": {
-        "figma": {
-          "name": "caption"
         }
       }
     },

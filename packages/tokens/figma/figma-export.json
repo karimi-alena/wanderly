@@ -1,5 +1,5 @@
 {
-  "exportedAt": "2026-11-09T00:39:32.367Z",
+  "exportedAt": "2026-11-09T03:14:36.150Z",
   "fileKey": "f2tSOfcWCn8dS1ePHl1uHh",
   "collections": [
     {
@@ -2248,10 +2248,10 @@
           "web": "var(--button-primary-bg-pressed)",
           "values": {
             "Aurora": {
-              "alias": "semantic-brand/palette/solid/dominant/600"
+              "alias": "semantic-brand/palette/solid/dominant/700"
             },
             "Ember": {
-              "alias": "semantic-brand/palette/solid/dominant/600"
+              "alias": "semantic-brand/palette/solid/dominant/700"
             },
             "Slate": {
               "alias": "semantic-brand/palette/solid/positive/700"
@@ -2343,6 +2343,20 @@
     }
   ],
   "textStyles": [
+    {
+      "name": "caption",
+      "fontFamily": "semantic-brand/text/style/font/body",
+      "fontStyle": "semantic-brand/text/style/font-style/body/medium",
+      "fontSize": "dimension/primitive/text/font-size/fs12",
+      "lineHeight": {
+        "unit": "PERCENT",
+        "value": 125
+      },
+      "letterSpacing": {
+        "unit": "PERCENT",
+        "value": 2
+      }
+    },
     {
       "name": "display/lg",
       "fontFamily": "semantic-brand/text/style/font/display",
@@ -2460,20 +2474,6 @@
       "fontFamily": "semantic-brand/text/style/font/body",
       "fontStyle": "semantic-brand/text/style/font-style/body/medium",
       "fontSize": "dimension/primitive/text/font-size/fs14",
-      "lineHeight": {
-        "unit": "PERCENT",
-        "value": 125
-      },
-      "letterSpacing": {
-        "unit": "PERCENT",
-        "value": 2
-      }
-    },
-    {
-      "name": "caption",
-      "fontFamily": "semantic-brand/text/style/font/body",
-      "fontStyle": "semantic-brand/text/style/font-style/body/medium",
-      "fontSize": "dimension/primitive/text/font-size/fs12",
       "lineHeight": {
         "unit": "PERCENT",
         "value": 125
