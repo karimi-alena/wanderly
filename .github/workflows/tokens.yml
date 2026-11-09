@@ -17,8 +17,11 @@ concurrency:
 
 jobs:
   build:
-    # Only branches in this repository: a fork's pull request can't be written to.
-    if: github.event_name == 'workflow_dispatch' || github.event.pull_request.head.repo.full_name == github.repository
+    # Only branches in this repository (a fork's pull request can't be written to), and not the
+    # run that this workflow's own "Build tokens" commit would start.
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (github.event.pull_request.head.repo.full_name == github.repository && github.actor != 'github-actions[bot]')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
