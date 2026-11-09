@@ -40,6 +40,8 @@ const glyphs = {
   ),
   check: <Path d="M5 12.5 10 17 19 7" />,
   close: <Path d="M6 6l12 12M18 6 6 18" />,
+  plus: <Path d="M12 5v14M5 12h14" />,
+  minus: <Path d="M5 12h14" />,
   'chevron-right': <Path d="m9 5 7 7-7 7" />,
   'chevron-left': <Path d="m15 5-7 7 7 7" />,
   info: (

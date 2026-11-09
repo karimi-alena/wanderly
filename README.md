@@ -15,7 +15,7 @@ token shape: **aurora** (default), **ember** and **slate**.
 
 ## Components
 
-- **Components** (`packages/ui/src/components`): `Icon`, `IconButton`, `Tag`, `Checkbox`, `Button`, `Input`,
+- **Components** (`packages/ui/src/components`): `Icon`, `IconButton`, `Tag`, `Checkbox`, `Button`, `Input`, `Stepper`,
   `MenuItem`, `Alert`, `Card`, `Logo`, `TopBar`, `PageHeader`, `TabBar` + `TabBarItem`.
 - **Templates** (`packages/ui/src/templates`): `TabTemplate` (root tab screen: logo top bar, large title,
   content, tab bar) and `PageTemplate` (pushed screen: header with back, content, pinned bottom bar).

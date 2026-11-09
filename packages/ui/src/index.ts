@@ -15,6 +15,7 @@ export {
   type ButtonVariant,
 } from './components/Button';
 export { Input, type InputProps } from './components/Input';
+export { Stepper, stepperSizes, type StepperProps, type StepperSize } from './components/Stepper';
 export { MenuItem, type MenuItemProps } from './components/MenuItem';
 export { Alert, alertTypes, type AlertProps, type AlertType } from './components/Alert';
 export { Card, type CardProps } from './components/Card';
