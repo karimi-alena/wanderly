@@ -7,3 +7,6 @@ web-build/
 .env*.local
 storybook-static/
 .vercel
+
+# Expo sometimes generates this when started from the repo root; the real configs live in each package.
+/tsconfig.json
