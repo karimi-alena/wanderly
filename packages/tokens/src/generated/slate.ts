@@ -216,6 +216,18 @@ export const slate = {
         "error": "#7F1313",
         "info": "#1E3A8A"
       }
+    },
+    "button": {
+      "primary": {
+        "background": "#22863A",
+        "backgroundPressed": "#176328",
+        "content": "#FFFFFF"
+      },
+      "secondary": {
+        "border": "#22863A",
+        "content": "#176328",
+        "backgroundPressed": "#E7F5EC"
+      }
     }
   },
   "borderWidth": {

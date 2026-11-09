@@ -216,6 +216,18 @@ export const ember = {
         "error": "#8E2412",
         "info": "#1A4C66"
       }
+    },
+    "button": {
+      "primary": {
+        "background": "#F97316",
+        "backgroundPressed": "#EA580C",
+        "content": "#FFFBF7"
+      },
+      "secondary": {
+        "border": "#F97316",
+        "content": "#EA580C",
+        "backgroundPressed": "#FFF7ED"
+      }
     }
   },
   "borderWidth": {

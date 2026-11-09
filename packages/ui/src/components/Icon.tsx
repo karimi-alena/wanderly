@@ -99,15 +99,17 @@ export function iconColor(t: Theme, tone: IconTone): string {
 export type IconProps = {
   name: IconName;
   tone?: IconTone;
+  /** A theme color that overrides `tone`, for components with their own color tokens (e.g. Button). */
+  color?: string;
   /** Defaults to the 24pt icon size token. */
   size?: number;
   accessibilityLabel?: string;
 };
 
-export function Icon({ name, tone = 'body', size, accessibilityLabel }: IconProps) {
+export function Icon({ name, tone = 'body', color: colorOverride, size, accessibilityLabel }: IconProps) {
   const t = useTheme();
   const px = size ?? t.dimension.widthHeight.wh24;
-  const color = iconColor(t, tone);
+  const color = colorOverride ?? iconColor(t, tone);
   const filled = name === 'placeholder';
   // Accessibility lives on the wrapper: react-native-svg forwards unknown props straight to the DOM on web.
   return (

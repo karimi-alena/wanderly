@@ -216,6 +216,18 @@ export const aurora = {
         "error": "#991B1B",
         "info": "#0369A1"
       }
+    },
+    "button": {
+      "primary": {
+        "background": "#6366F1",
+        "backgroundPressed": "#4F46E5",
+        "content": "#FFFFFF"
+      },
+      "secondary": {
+        "border": "#6366F1",
+        "content": "#4F46E5",
+        "backgroundPressed": "#EEF2FF"
+      }
     }
   },
   "borderWidth": {

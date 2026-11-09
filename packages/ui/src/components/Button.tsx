@@ -1,6 +1,6 @@
 import { Pressable, Text } from 'react-native';
 import { useTheme, type Theme } from '../theme';
-import { Icon, type IconName, type IconTone } from './Icon';
+import { Icon, type IconName } from './Icon';
 
 export type ButtonVariant = 'primary' | 'secondary' | 'ghost';
 export type ButtonSize = 'small' | 'medium' | 'large';
@@ -24,21 +24,20 @@ function sizeTokens(t: Theme, size: ButtonSize) {
   }
 }
 
+// Buttons use their own color tokens so a brand can style them apart from other brand accents
+// (Slate's buttons are green). Disabled stays neutral in every brand.
 function variantTokens(t: Theme, variant: ButtonVariant, disabled: boolean, pressed: boolean) {
-  const { surface, text, border } = t.color;
+  const { surface, text, border, button } = t.color;
   if (variant === 'primary') {
     return {
-      bg: disabled ? surface.neutral.dim : pressed ? surface.brand.hover : surface.brand.solid,
-      fg: disabled ? text.neutral.disabled : text.brand.onSolid,
-      icon: (disabled ? 'disabled' : 'inverse') as IconTone,
-      border: undefined,
+      bg: disabled ? surface.neutral.dim : pressed ? button.primary.backgroundPressed : button.primary.background,
+      fg: disabled ? text.neutral.disabled : button.primary.content,
     };
   }
   return {
-    bg: pressed ? surface.brand.subtle : variant === 'secondary' ? surface.neutral.base : 'transparent',
-    fg: disabled ? text.neutral.disabled : text.brand.active,
-    icon: (disabled ? 'disabled' : 'brand') as IconTone,
-    border: variant === 'secondary' ? (disabled ? border.neutral.base : border.brand.active) : undefined,
+    bg: pressed && !disabled ? button.secondary.backgroundPressed : variant === 'secondary' ? surface.neutral.base : 'transparent',
+    fg: disabled ? text.neutral.disabled : button.secondary.content,
+    border: variant === 'secondary' ? (disabled ? border.neutral.base : button.secondary.border) : undefined,
   };
 }
 
@@ -94,7 +93,7 @@ export function Button({
         const v = variantTokens(t, variant, disabled, pressed);
         return (
           <>
-            {icon && <Icon name={icon} tone={v.icon} />}
+            {icon && <Icon name={icon} color={v.fg} />}
             <Text style={[s.text, { color: v.fg }]}>{label}</Text>
           </>
         );

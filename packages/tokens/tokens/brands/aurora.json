@@ -800,6 +800,72 @@
           }
         }
       }
+    },
+    "button": {
+      "primary": {
+        "background": {
+          "$type": "color",
+          "$value": "{color.palette.dominant.500}",
+          "$extensions": {
+            "figma": {
+              "name": "button/color/primary/background",
+              "web": "var(--button-primary-bg)"
+            }
+          }
+        },
+        "backgroundPressed": {
+          "$type": "color",
+          "$value": "{color.palette.dominant.600}",
+          "$extensions": {
+            "figma": {
+              "name": "button/color/primary/background-pressed",
+              "web": "var(--button-primary-bg-pressed)"
+            }
+          }
+        },
+        "content": {
+          "$type": "color",
+          "$value": "{color.palette.grayscale.0}",
+          "$extensions": {
+            "figma": {
+              "name": "button/color/primary/content",
+              "web": "var(--button-primary-content)"
+            }
+          }
+        }
+      },
+      "secondary": {
+        "border": {
+          "$type": "color",
+          "$value": "{color.palette.dominant.500}",
+          "$extensions": {
+            "figma": {
+              "name": "button/color/secondary/border",
+              "web": "var(--button-secondary-border)"
+            }
+          }
+        },
+        "content": {
+          "$type": "color",
+          "$value": "{color.palette.dominant.600}",
+          "$extensions": {
+            "figma": {
+              "name": "button/color/secondary/content",
+              "web": "var(--button-secondary-content)"
+            }
+          }
+        },
+        "backgroundPressed": {
+          "$type": "color",
+          "$value": "{color.palette.dominant.50}",
+          "$extensions": {
+            "figma": {
+              "name": "button/color/secondary/background-pressed",
+              "web": "var(--button-secondary-bg-pressed)"
+            }
+          }
+        }
+      }
     }
   },
   "borderWidth": {
