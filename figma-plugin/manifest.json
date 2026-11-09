@@ -1,0 +1,13 @@
+{
+  "name": "Wanderly Token Sync",
+  "id": "wanderly-token-sync",
+  "api": "1.0.0",
+  "main": "code.js",
+  "ui": "ui.html",
+  "editorType": ["figma"],
+  "documentAccess": "dynamic-page",
+  "networkAccess": {
+    "allowedDomains": ["https://api.github.com"],
+    "reasoning": "Reads the current token export from GitHub and opens a pull request with the new one."
+  }
+}

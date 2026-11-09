@@ -1,0 +1,56 @@
+# Rebuilds the code tokens when a pull request changes the Figma export
+# (usually one opened by the Wanderly Token Sync Figma plugin) and commits them to that branch.
+name: Build tokens
+
+on:
+  pull_request:
+    paths:
+      - packages/tokens/figma/figma-export.json
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: tokens-${{ github.head_ref || github.ref_name }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    # Only branches in this repository: a fork's pull request can't be written to.
+    if: github.event_name == 'workflow_dispatch' || github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref || github.ref_name }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - run: npm ci
+
+      - name: Build tokens from the Figma export
+        run: npm run tokens
+
+      - name: Typecheck (fails if a brand is missing a token)
+        run: npm run typecheck
+
+      - name: Commit generated tokens
+        run: |
+          if [ -z "$(git status --porcelain packages/tokens)" ]; then
+            echo "Generated tokens are already up to date."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add packages/tokens
+          git commit -m "Build tokens from Figma export"
+          git push
+          {
+            echo "### Generated tokens updated"
+            echo
+            git show --stat --format= HEAD
+          } >> "$GITHUB_STEP_SUMMARY"

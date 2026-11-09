@@ -2262,8 +2262,8 @@
           "name": "button/color/primary/content",
           "type": "COLOR",
           "scopes": [
-            "TEXT_FILL",
             "SHAPE_FILL",
+            "TEXT_FILL",
             "STROKE_COLOR"
           ],
           "web": "var(--button-primary-content)",
@@ -2302,8 +2302,8 @@
           "name": "button/color/secondary/content",
           "type": "COLOR",
           "scopes": [
-            "TEXT_FILL",
             "SHAPE_FILL",
+            "TEXT_FILL",
             "STROKE_COLOR"
           ],
           "web": "var(--button-secondary-content)",

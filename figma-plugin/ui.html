@@ -1,0 +1,194 @@
+<style>
+  :root { font: 12px/1.45 Inter, system-ui, sans-serif; }
+  body { margin: 0; padding: 16px; color: var(--figma-color-text, #1e1e1e); background: var(--figma-color-bg, #fff); }
+  h1 { font-size: 14px; margin: 0 0 4px; }
+  p { margin: 0 0 12px; color: var(--figma-color-text-secondary, #666); }
+  label { display: block; font-weight: 600; margin: 10px 0 4px; }
+  input { box-sizing: border-box; width: 100%; padding: 6px 8px; border-radius: 6px; font: inherit;
+    border: 1px solid var(--figma-color-border, #ccc); background: var(--figma-color-bg, #fff); color: inherit; }
+  .row { display: flex; gap: 8px; margin-top: 14px; }
+  button { font: inherit; font-weight: 600; padding: 7px 12px; border-radius: 6px; cursor: pointer;
+    border: 1px solid var(--figma-color-border, #ccc); background: var(--figma-color-bg, #fff); color: inherit; }
+  button.primary { background: var(--figma-color-bg-brand, #0d99ff); color: var(--figma-color-text-onbrand, #fff); border-color: transparent; }
+  button:disabled { opacity: .45; cursor: default; }
+  .link { background: none; border: 0; padding: 0; font-weight: 400; text-decoration: underline; color: var(--figma-color-text-secondary, #666); }
+  #status { margin-top: 14px; white-space: pre-wrap; }
+  #summary { margin-top: 12px; max-height: 230px; overflow: auto; border-radius: 6px; padding: 8px 10px;
+    background: var(--figma-color-bg-secondary, #f5f5f5); }
+  #summary ul { margin: 2px 0 8px; padding-left: 16px; }
+  #summary li small { color: var(--figma-color-text-secondary, #666); display: block; }
+  .error { color: var(--figma-color-text-danger, #d32f2f); }
+  a { color: var(--figma-color-text-brand, #0d99ff); }
+</style>
+
+<h1>Wanderly Token Sync</h1>
+<p>Exports this file's variables and text styles and opens a pull request on GitHub. A GitHub Action then rebuilds the code tokens on that pull request.</p>
+
+<label for="repo">GitHub repository</label>
+<input id="repo" placeholder="owner/name" />
+
+<label for="token">GitHub token <button class="link" id="forget" type="button">forget</button></label>
+<input id="token" type="password" placeholder="Fine-grained token for this repo only" autocomplete="off" />
+
+<div class="row">
+  <button id="check" class="primary">Check for changes</button>
+  <button id="pr" disabled>Open pull request</button>
+</div>
+<div class="row">
+  <button class="link" id="download" type="button" disabled>Download JSON instead</button>
+</div>
+
+<div id="summary" hidden></div>
+<div id="status"></div>
+
+<script>
+  const PATH = 'packages/tokens/figma/figma-export.json';
+  const $ = (id) => document.getElementById(id);
+  const post = (msg) => parent.postMessage({ pluginMessage: msg }, '*');
+  let state = { base: null, fileSha: null, current: null, next: null, diff: null };
+
+  function status(text, isError) {
+    $('status').className = isError ? 'error' : '';
+    $('status').textContent = text;
+  }
+
+  async function gh(path, opts = {}) {
+    const res = await fetch('https://api.github.com' + path, {
+      ...opts,
+      headers: {
+        Accept: 'application/vnd.github+json',
+        'X-GitHub-Api-Version': '2022-11-28',
+        Authorization: 'Bearer ' + $('token').value.trim(),
+        ...(opts.body ? { 'Content-Type': 'application/json' } : {}),
+      },
+    });
+    if (res.status === 404 && opts.allow404) return null;
+    const body = res.status === 204 ? null : await res.json().catch(() => null);
+    if (!res.ok) {
+      const hint = res.status === 401 ? ' (token is wrong or expired)'
+        : res.status === 403 ? ' (token is missing a permission: it needs Contents and Pull requests, Read and write)'
+        : res.status === 404 ? ' (repository not found, or the token has no access to it)' : '';
+      throw new Error('GitHub ' + res.status + hint + (body && body.message ? ': ' + body.message : ''));
+    }
+    return body;
+  }
+
+  // GitHub's contents API speaks base64; these handle non-ASCII characters safely.
+  const fromB64 = (s) => new TextDecoder().decode(Uint8Array.from(atob(s.replace(/\n/g, '')), (c) => c.charCodeAt(0)));
+  const toB64 = (s) => {
+    const bytes = new TextEncoder().encode(s);
+    let bin = '';
+    for (let i = 0; i < bytes.length; i += 0x8000) bin += String.fromCharCode(...bytes.subarray(i, i + 0x8000));
+    return btoa(bin);
+  };
+
+  function esc(s) { return String(s).replace(/[&<>]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c])); }
+
+  function renderSummary(d) {
+    const total = d.added.length + d.removed.length + d.changed.length + d.modesChanged.length;
+    if (!total) { $('summary').hidden = true; return 0; }
+    const list = (title, items) => items.length
+      ? `<strong>${title} (${items.length})</strong><ul>${items.map((i) => typeof i === 'string'
+          ? `<li>${esc(i)}</li>`
+          : `<li>${esc(i.name)}${i.details.map((x) => `<small>${esc(x)}</small>`).join('')}</li>`).join('')}</ul>`
+      : '';
+    $('summary').innerHTML = list('Modes', d.modesChanged) + list('Changed', d.changed) + list('Added', d.added) + list('Removed', d.removed);
+    $('summary').hidden = false;
+    return total;
+  }
+
+  function prBody(d) {
+    const lines = ['Exported from Figma with the Wanderly Token Sync plugin.', ''];
+    const section = (title, items) => {
+      if (!items.length) return;
+      lines.push('### ' + title, '');
+      items.forEach((i) => {
+        if (typeof i === 'string') lines.push('- `' + i + '`');
+        else { lines.push('- `' + i.name + '`'); i.details.forEach((x) => lines.push('  - ' + x)); }
+      });
+      lines.push('');
+    };
+    section('Modes', d.modesChanged);
+    section('Changed', d.changed);
+    section('Added', d.added);
+    section('Removed', d.removed);
+    lines.push('The **Build tokens** check regenerates `packages/tokens` on this branch and runs the typecheck. Merge once it is green.');
+    return lines.join('\n');
+  }
+
+  function saveSettings() { post({ type: 'save-settings', repo: $('repo').value.trim(), token: $('token').value.trim() }); }
+
+  $('check').onclick = async () => {
+    const repo = $('repo').value.trim();
+    if (!/^[\w.-]+\/[\w.-]+$/.test(repo)) return status('Enter the repository as owner/name.', true);
+    if (!$('token').value.trim()) return status('Paste a GitHub token first.', true);
+    saveSettings();
+    $('pr').disabled = true; $('download').disabled = true; $('summary').hidden = true;
+    status('Reading the current tokens from GitHub…');
+    try {
+      const info = await gh('/repos/' + repo);
+      state.base = info.default_branch;
+      const file = await gh(`/repos/${repo}/contents/${PATH}?ref=${encodeURIComponent(state.base)}`, { allow404: true });
+      state.fileSha = file ? file.sha : null;
+      state.current = file ? JSON.parse(fromB64(file.content)) : null;
+      status('Exporting variables from Figma…');
+      post({ type: 'export', current: state.current });
+    } catch (e) { status(e.message, true); }
+  };
+
+  $('pr').onclick = async () => {
+    const repo = $('repo').value.trim();
+    $('pr').disabled = true;
+    try {
+      const stamp = new Date().toISOString().replace(/[-:]/g, '').replace('T', '-').slice(0, 15);
+      const branch = 'figma-tokens/' + stamp;
+      status('Creating branch ' + branch + '…');
+      const ref = await gh(`/repos/${repo}/git/ref/heads/${encodeURIComponent(state.base)}`);
+      await gh(`/repos/${repo}/git/refs`, { method: 'POST', body: JSON.stringify({ ref: 'refs/heads/' + branch, sha: ref.object.sha }) });
+      status('Committing the export…');
+      await gh(`/repos/${repo}/contents/${PATH}`, {
+        method: 'PUT',
+        body: JSON.stringify({
+          message: 'Update tokens from Figma',
+          content: toB64(JSON.stringify(state.next, null, 2) + '\n'),
+          branch,
+          ...(state.fileSha ? { sha: state.fileSha } : {}),
+        }),
+      });
+      status('Opening the pull request…');
+      const pr = await gh(`/repos/${repo}/pulls`, {
+        method: 'POST',
+        body: JSON.stringify({ title: 'Update tokens from Figma', head: branch, base: state.base, body: prBody(state.diff) }),
+      });
+      $('status').className = '';
+      $('status').innerHTML = `Pull request opened: <a href="${pr.html_url}" target="_blank">#${pr.number}</a>.\nThe Build tokens check will add the generated code in a minute or two. Merge it on GitHub once the check is green.`;
+    } catch (e) { status(e.message, true); $('pr').disabled = false; }
+  };
+
+  $('download').onclick = () => {
+    const blob = new Blob([JSON.stringify(state.next, null, 2) + '\n'], { type: 'application/json' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'figma-export.json';
+    a.click();
+  };
+
+  $('forget').onclick = () => { $('token').value = ''; post({ type: 'forget-token' }); status('Token removed from this computer.'); };
+
+  onmessage = (event) => {
+    const msg = event.data.pluginMessage;
+    if (!msg) return;
+    if (msg.type === 'settings') { $('repo').value = msg.repo; $('token').value = msg.token; }
+    if (msg.type === 'error') status(msg.message, true);
+    if (msg.type === 'exported') {
+      state.next = msg.data; state.diff = msg.diff;
+      $('download').disabled = false;
+      const n = renderSummary(msg.diff);
+      if (!n) return status('No changes: the code already matches this file.');
+      $('pr').disabled = false;
+      status(n + (n === 1 ? ' change' : ' changes') + ' found. Review them above, then open a pull request.');
+    }
+  };
+
+  post({ type: 'load-settings' });
+</script>

@@ -40,6 +40,25 @@ npm run storybook    # component catalogue (http://localhost:6006)
 
 ## Updating tokens from Figma
 
+### With the Wanderly Token Sync plugin (recommended)
+
+`figma-plugin/` is a small Figma plugin that exports the file's variables and text styles and opens a
+pull request that updates `packages/tokens/figma/figma-export.json`. The **Build tokens** GitHub Action
+(`.github/workflows/tokens.yml`) then runs `npm run tokens` and `npm run typecheck` on that pull request and
+commits the generated files to it. Merge when the check is green.
+
+One-time setup:
+
+1. In the Figma desktop app: **Plugins → Development → Import plugin from manifest…** and pick
+   `figma-plugin/manifest.json`.
+2. On GitHub, create a fine-grained token (Settings → Developer settings → Fine-grained tokens) with access to
+   this repository only and the permissions **Contents: Read and write** and **Pull requests: Read and write**.
+   Paste it into the plugin once; it's stored only on your computer (Figma client storage).
+
+Each time: run the plugin, click **Check for changes**, review the list, click **Open pull request**.
+
+### By hand
+
 1. Replace `packages/tokens/figma/figma-export.json` with a fresh export of the Figma variables
    and text styles (same shape as the current file).
 2. Run `npm run tokens`. This writes `packages/tokens/tokens/*.json` (W3C format) and
