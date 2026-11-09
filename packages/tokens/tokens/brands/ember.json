@@ -815,7 +815,7 @@
         },
         "backgroundPressed": {
           "$type": "color",
-          "$value": "{color.palette.dominant.600}",
+          "$value": "{color.palette.dominant.700}",
           "$extensions": {
             "figma": {
               "name": "button/color/primary/background-pressed",
