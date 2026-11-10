@@ -1,5 +1,5 @@
 {
-  "exportedAt": "2026-11-09T03:14:36.150Z",
+  "exportedAt": "2026-11-10T19:46:28.577Z",
   "fileKey": "f2tSOfcWCn8dS1ePHl1uHh",
   "collections": [
     {
@@ -2337,6 +2337,146 @@
             "Slate": {
               "alias": "semantic-brand/palette/solid/positive/100"
             }
+          }
+        },
+        {
+          "name": "border/color/brand/focus-ring",
+          "type": "COLOR",
+          "scopes": [
+            "STROKE_COLOR"
+          ],
+          "web": null,
+          "values": {
+            "Aurora": {
+              "alias": "semantic-brand/border/color/brand/focus"
+            },
+            "Ember": {
+              "alias": "semantic-brand/border/color/brand/focus"
+            },
+            "Slate": {
+              "alias": "semantic-brand/border/color/brand/focus"
+            }
+          }
+        },
+        {
+          "name": "border/dimension/focus-ring-offset",
+          "type": "FLOAT",
+          "scopes": [
+            "GAP",
+            "STROKE_FLOAT"
+          ],
+          "web": null,
+          "values": {
+            "Aurora": 2,
+            "Ember": 2,
+            "Slate": 2
+          }
+        }
+      ]
+    },
+    {
+      "name": "elevation",
+      "modes": [
+        "Mode 1"
+      ],
+      "variables": [
+        {
+          "name": "shadow/sm/color",
+          "type": "COLOR",
+          "scopes": [
+            "EFFECT_COLOR"
+          ],
+          "web": null,
+          "values": {
+            "Mode 1": "#0F172A0D"
+          }
+        },
+        {
+          "name": "shadow/md/color",
+          "type": "COLOR",
+          "scopes": [
+            "EFFECT_COLOR"
+          ],
+          "web": null,
+          "values": {
+            "Mode 1": "#0F172A14"
+          }
+        },
+        {
+          "name": "shadow/lg/color",
+          "type": "COLOR",
+          "scopes": [
+            "EFFECT_COLOR"
+          ],
+          "web": null,
+          "values": {
+            "Mode 1": "#0F172A1F"
+          }
+        },
+        {
+          "name": "shadow/sm/blur",
+          "type": "FLOAT",
+          "scopes": [
+            "EFFECT_FLOAT"
+          ],
+          "web": null,
+          "values": {
+            "Mode 1": 2
+          }
+        },
+        {
+          "name": "shadow/md/blur",
+          "type": "FLOAT",
+          "scopes": [
+            "EFFECT_FLOAT"
+          ],
+          "web": null,
+          "values": {
+            "Mode 1": 6
+          }
+        },
+        {
+          "name": "shadow/lg/blur",
+          "type": "FLOAT",
+          "scopes": [
+            "EFFECT_FLOAT"
+          ],
+          "web": null,
+          "values": {
+            "Mode 1": 15
+          }
+        },
+        {
+          "name": "shadow/sm/y",
+          "type": "FLOAT",
+          "scopes": [
+            "EFFECT_FLOAT"
+          ],
+          "web": null,
+          "values": {
+            "Mode 1": 1
+          }
+        },
+        {
+          "name": "shadow/md/y",
+          "type": "FLOAT",
+          "scopes": [
+            "EFFECT_FLOAT"
+          ],
+          "web": null,
+          "values": {
+            "Mode 1": 4
+          }
+        },
+        {
+          "name": "shadow/lg/y",
+          "type": "FLOAT",
+          "scopes": [
+            "EFFECT_FLOAT"
+          ],
+          "web": null,
+          "values": {
+            "Mode 1": 10
           }
         }
       ]
