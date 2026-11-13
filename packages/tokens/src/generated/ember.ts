@@ -84,6 +84,25 @@ export const ember = {
       }
     }
   },
+  "elevation": {
+    "shadow": {
+      "sm": {
+        "color": "#0F172A0D",
+        "blur": 2,
+        "y": 1
+      },
+      "md": {
+        "color": "#0F172A14",
+        "blur": 6,
+        "y": 4
+      },
+      "lg": {
+        "color": "#0F172A1F",
+        "blur": 15,
+        "y": 10
+      }
+    }
+  },
   "color": {
     "palette": {
       "dominant": {
@@ -172,7 +191,8 @@ export const ember = {
       },
       "brand": {
         "active": "#F97316",
-        "focus": "#F97316"
+        "focus": "#F97316",
+        "focusRing": "#F97316"
       },
       "feedback": {
         "success": "#2E8F3F",
@@ -255,6 +275,9 @@ export const ember = {
       "semibold": 600,
       "bold": 700
     }
+  },
+  "border": {
+    "focusRingOffset": 2
   },
   "fontFiles": [
     "Fraunces_600SemiBold",
