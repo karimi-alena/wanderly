@@ -540,6 +540,15 @@
               "web": "var(--border-focus)"
             }
           }
+        },
+        "focusRing": {
+          "$type": "color",
+          "$value": "{color.border.brand.focus}",
+          "$extensions": {
+            "figma": {
+              "name": "border/color/brand/focus-ring"
+            }
+          }
         }
       },
       "feedback": {
@@ -1034,6 +1043,17 @@
             "name": "text/style/weight/bold",
             "web": "var(--weight-bold)"
           }
+        }
+      }
+    }
+  },
+  "border": {
+    "focusRingOffset": {
+      "$type": "number",
+      "$value": 2,
+      "$extensions": {
+        "figma": {
+          "name": "border/dimension/focus-ring-offset"
         }
       }
     }

@@ -84,6 +84,25 @@ export const aurora = {
       }
     }
   },
+  "elevation": {
+    "shadow": {
+      "sm": {
+        "color": "#0F172A0D",
+        "blur": 2,
+        "y": 1
+      },
+      "md": {
+        "color": "#0F172A14",
+        "blur": 6,
+        "y": 4
+      },
+      "lg": {
+        "color": "#0F172A1F",
+        "blur": 15,
+        "y": 10
+      }
+    }
+  },
   "color": {
     "palette": {
       "dominant": {
@@ -172,7 +191,8 @@ export const aurora = {
       },
       "brand": {
         "active": "#6366F1",
-        "focus": "#6366F1"
+        "focus": "#6366F1",
+        "focusRing": "#6366F1"
       },
       "feedback": {
         "success": "#16A34A",
@@ -255,6 +275,9 @@ export const aurora = {
       "semibold": 600,
       "bold": 700
     }
+  },
+  "border": {
+    "focusRingOffset": 2
   },
   "fontFiles": [
     "Inter_400Regular",
