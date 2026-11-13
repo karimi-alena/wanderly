@@ -1,5 +1,5 @@
 // Builds tokens/*.json into typed React Native theme objects in src/generated/.
-import { readdirSync } from 'node:fs';
+import { existsSync, readdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import StyleDictionary from 'style-dictionary';
@@ -56,7 +56,12 @@ StyleDictionary.registerFormat({
     `${header}export const dimension = ${JSON.stringify(toTree(dictionary.allTokens, (t) => t.$value).dimension, null, 2)};\n`,
 });
 
-const shared = ['tokens/dimension.json', 'tokens/typography.json'].map((f) => join(root, f));
+// Shared by every brand: sizes, text styles, and any extra single-mode Figma collection (e.g. elevation).
+const sharedDir = join(root, 'tokens/shared');
+const shared = [
+  ...['tokens/dimension.json', 'tokens/typography.json'].map((f) => join(root, f)),
+  ...(existsSync(sharedDir) ? readdirSync(sharedDir).map((f) => join(sharedDir, f)) : []),
+];
 
 for (const brand of brands) {
   const sd = new StyleDictionary({
