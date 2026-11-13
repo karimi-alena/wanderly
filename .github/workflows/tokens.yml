@@ -50,7 +50,9 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add packages/tokens
-          git commit -m "Build tokens from Figma export"
+          # [skip ci]: GitHub would otherwise start another run for this bot commit and hold it
+          # for approval, leaving a stray pending/failed check on the pull request.
+          git commit -m "Build tokens from Figma export [skip ci]"
           git push
           {
             echo "### Generated tokens updated"
